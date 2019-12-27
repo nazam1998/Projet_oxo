@@ -14,27 +14,24 @@ let player = [{
 
 content.forEach(e => {
 
-    do {
 
-        e.parentElement.addEventListener('click', () => {
+    e.parentElement.addEventListener('click', () => {
 
-            if (estVide(e)) {
+        if (estVide(e)) {
 
-                click++;
-                let temp = click % 2;
+            click++;
+            let temp = click % 2;
 
-                e.innerHTML = player[temp].pawn;
-                e.style.color = player[temp].color;
+            e.innerHTML = player[temp].pawn;
+            e.style.color = player[temp].color;
 
-                rempli();
-
-            }
-        });
-    } while (!rempli());
-    if (rempli()) {
-        alert('La partie est terminée');
-    }
+        }
+        if (estRempli()) {
+            alert('La partie est terminée');
+        }
+    });
 });
+
 
 function estVide(e) {
     return e.innerText == '.';
@@ -44,17 +41,15 @@ function horizontal() {
 
 }
 
-function rempli() {
+function estRempli() {
+    let rempli = true
+    for (let i = 0; i < content.length; i++) {
 
-    content.forEach(e => {
+        if (content[i].innerText == '.') {
 
-        if (e.innerText == '.') {
-
-            return true;
+            rempli = false
 
         }
-
-    });
-
-    return false;
+    }
+    return rempli;
 }
