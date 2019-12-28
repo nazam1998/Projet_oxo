@@ -26,7 +26,9 @@ content.forEach(e => {
             e.style.color = player[temp].color;
 
         }
-        if (estRempli()) {
+        if (horizontal() || vertical() || diagonale()) {
+            alert(`Le joueur ${player[click%2].pawn} a gagné!`);
+        } else if (estRempli()) {
             alert('La partie est terminée');
         }
     });
@@ -38,6 +40,62 @@ function estVide(e) {
 }
 
 function horizontal() {
+    let meme;
+    for (let i = 0; i < 3; i++) {
+        meme = 0;
+        for (let j = 0; j < 3; j++) {
+            if (content[j + (i * 3)].innerText != player[click % 2].pawn) {
+                break;
+            } else {
+                meme++;
+            }
+        }
+        if (meme == 3) {
+            return true;
+        }
+    }
+}
+
+function vertical() {
+    let meme;
+    for (let i = 0; i < 3; i++) {
+        meme = 0;
+        for (let j = 0; j < 3; j++) {
+            if (content[i + (j * 3)].innerText != player[click % 2].pawn) {
+                break;
+            } else {
+                meme++;
+            }
+        }
+        if (meme == 3) {
+            return true;
+        }
+    }
+}
+
+function diagonale() {
+    let meme = 0;
+    for (let i = 0; i < 3; i++) {
+        if (content[i * 4].innerText != player[click % 2].pawn) {
+            break
+        } else {
+            meme++
+        }
+    }
+    if (meme == 3) {
+        return true;
+    }
+    meme = 0;
+    for (let i = 0; i < 3; i++) {
+        if (content[6 - i * 2].innerText != player[click % 2].pawn) {
+            break;
+        } else {
+            meme++
+        }
+    }
+    if (meme == 3) {
+        return true;
+    }
 
 }
 
