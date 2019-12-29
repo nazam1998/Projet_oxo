@@ -1,6 +1,9 @@
 let content = document.querySelectorAll('.content');
 let plateau = document.getElementsByClassName('row')[0];
+let btn = document.getElementById('start');
+
 let click = 0;
+
 let player = [{
         pawn: 'X',
         color: 'blue'
@@ -111,3 +114,19 @@ function estRempli() {
     }
     return rempli;
 }
+
+btn.addEventListener('click', () => {
+    plateau.classList.remove('d-none');
+    let clear = document.createElement('button');
+    clear.innerText = 'Recommencez';
+    btn.parentElement.appendChild(clear);
+    clear.setAttribute('class', btn.getAttribute('class'));
+    btn.classList.add('d-none');
+    clear.addEventListener('click', () => {
+        content.forEach(e => {
+            e.innerText = '.';
+            e.style.color = '';
+            click = 0;
+        });
+    });
+});
