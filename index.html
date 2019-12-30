@@ -6,14 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>OXO</title>
     <link rel="stylesheet" href="./public/css/style.css">
 
 </head>
 
 <body>
-
-    <div class="row container mx-auto d-none">
+    <div class="row my-5 justify-content-center">
+        <div class="col-6 text-center"><input type="text" placeholder="Joueur X"></div>
+        <div class="col-6 text-center"><input type="text" placeholder="Joueur O"></div>
+    </div>
+    <div class="row container mx-auto d-none" id="plateau">
 
         <div class="col-4">
             <div class="content">.</div>
@@ -52,12 +55,8 @@
         </div>
 
     </div>
-
+    
     <div class="container text-center mt-5">
         <button id='start' class="btn btn-success">Commencer</button>
     </div>
     <script src="./public/js/main.js"></script>
-
-</body>
-
-</html>

@@ -1,42 +1,40 @@
 let content = document.querySelectorAll('.content');
-let plateau = document.getElementsByClassName('row')[0];
+let plateau = document.getElementById('plateau');
 let btn = document.getElementById('start');
-
+let nom = document.querySelectorAll('input');
 let click = 0;
 
 let player = [{
-        pawn: 'X',
-        color: 'blue'
-    },
-    {
-        pawn: 'O',
-        color: 'red'
-    }
-];
-
+    pawn: 'X',
+    color: 'blue'
+}, {
+    pawn: 'O',
+    color: 'red'
+}];
 
 content.forEach(e => {
-
-
     e.parentElement.addEventListener('click', () => {
-
         if (estVide(e)) {
-
-            click++;
             let temp = click % 2;
-
             e.innerHTML = player[temp].pawn;
             e.style.color = player[temp].color;
+            if (horizontal() || vertical() || diagonale()) {
+                setTimeout(() => {
+                    alert(`${player[click%2].name} a gagné!`);
+                    init();
+                }, 200);
+            } else if (estRempli()) {
+                setTimeout(() => {
+                    alert('La partie est terminée');
+                    init();
+                }, 200);
+            }
 
-        }
-        if (horizontal() || vertical() || diagonale()) {
-            alert(`Le joueur ${player[click%2].pawn} a gagné!`);
-        } else if (estRempli()) {
-            alert('La partie est terminée');
+            click++;
+
         }
     });
 });
-
 
 function estVide(e) {
     return e.innerText == '.';
@@ -99,34 +97,55 @@ function diagonale() {
     if (meme == 3) {
         return true;
     }
-
 }
 
 function estRempli() {
-    let rempli = true
+    let rempli = true;
     for (let i = 0; i < content.length; i++) {
-
         if (content[i].innerText == '.') {
-
-            rempli = false
-
+            rempli = false;
         }
     }
     return rempli;
 }
 
+
 btn.addEventListener('click', () => {
-    plateau.classList.remove('d-none');
     let clear = document.createElement('button');
+    let joueur1 = document.createElement('p');
+    let joueur2 = document.createElement('p');
+    plateau.classList.remove('d-none');
+
     clear.innerText = 'Recommencez';
-    btn.parentElement.appendChild(clear);
+
+    player[0].name = nom[0].value;
+    player[1].name = nom[1].value;
+
+    joueur1.innerText = nom[0].value + ' ' + player[0].pawn;
+    joueur2.innerText = nom[1].value + ' ' + player[1].pawn;
+
+    joueur1.style.fontSize = '20px';
+    joueur2.style.fontSize = '20px';
+
+    nom[0].parentElement.appendChild(joueur1);
+    nom[1].parentElement.appendChild(joueur2);
+
+    nom[0].style.display = 'none';
+    nom[1].style.display = 'none';
+
+    nom[0].parentElement.parentElement.appendChild(clear);
+
     clear.setAttribute('class', btn.getAttribute('class'));
+
     btn.classList.add('d-none');
-    clear.addEventListener('click', () => {
-        content.forEach(e => {
-            e.innerText = '.';
-            e.style.color = '';
-            click = 0;
-        });
-    });
+
+    clear.addEventListener('click', init());
 });
+
+function init() {
+    content.forEach(e => {
+        e.innerText = '.';
+        e.style.color = '';
+        click = 0;
+    });
+}
