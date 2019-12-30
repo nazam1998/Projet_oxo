@@ -149,3 +149,5 @@ function init() {
         click = 0;
     });
 }
+
+console.log('hello');
